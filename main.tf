@@ -14,3 +14,9 @@ provider "aws" {
 module "vpc" {
   source = "./modules/vpc"
 }
+
+module "security_group" {
+  source = "./modules/security-group"
+  vpc_id = module.vpc.vpc_id
+  name   = "security-group"
+}
