@@ -20,3 +20,10 @@ module "security_group" {
   vpc_id = module.vpc.vpc_id
   name   = "security-group"
 }
+
+module "alb" {
+  source              = "./modules/alb"
+  vpc_id              = module.vpc.vpc_id
+  subnets_ids         = module.vpc.public_subnet_ids
+  security_groups_ids = [module.security_group.security_group_id]
+}
