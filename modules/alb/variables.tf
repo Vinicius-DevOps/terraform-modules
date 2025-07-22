@@ -1,21 +1,21 @@
 variable "name" {
   description = "Name of the Application Load Balancer."
-  type = string
-  default = "alb"
+  type        = string
+  default     = "alb"
 }
 variable "internal" {
   description = "Indicates whether the Application Load Balancer is internal or not."
-  type = bool
-  default = false
+  type        = bool
+  default     = false
 }
 variable "security_groups_ids" {
   description = "List of Security Group IDs for the Application Load Balancer."
-  type = list(string)
-  default = []
+  type        = list(string)
+  default     = []
 }
 variable "subnets_ids" {
   description = "List of Subnet IDs for the Application Load Balancer."
-  type = list(string)
+  type        = list(string)
 }
 variable "target_group_name" {
   description = "Target Group name. If not provided, the default will be the ALB name followed by '-tg'."
@@ -58,6 +58,6 @@ variable "listener_protocol" {
 }
 variable "tags" {
   description = "Tags to be applied to the Application Load Balancer."
-  type = map(string)
-  default = {}
+  type        = map(string)
+  default     = {}
 }

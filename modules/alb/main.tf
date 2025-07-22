@@ -1,18 +1,18 @@
 # Application Load Balancer
 resource "aws_lb" "main" {
-  name               = var.name
-  internal           = var.internal
-  load_balancer_type = "application"
-  security_groups    = var.security_groups_ids
-  subnets            = var.subnets_ids
+  name                       = var.name
+  internal                   = var.internal
+  load_balancer_type         = "application"
+  security_groups            = var.security_groups_ids
+  subnets                    = var.subnets_ids
   enable_deletion_protection = false
 
   tags = merge(
     {
-        Name = var.name
+      Name = var.name
     },
     var.tags
-    )
+  )
 }
 
 # Target Group
@@ -24,22 +24,22 @@ resource "aws_lb_target_group" "main" {
   vpc_id      = var.vpc_id
 
   health_check {
-    path = var.health_check_path
-    port = var.health_check_port
-    protocol = var.target_group_protocol
-    healthy_threshold = 3
+    path                = var.health_check_path
+    port                = var.health_check_port
+    protocol            = var.target_group_protocol
+    healthy_threshold   = 3
     unhealthy_threshold = 3
-    timeout = 5
-    interval = 30
-    matcher = "200"
+    timeout             = 5
+    interval            = 30
+    matcher             = "200"
   }
 
   tags = merge(
     {
-        Name = "${var.name}-tg"
+      Name = "${var.name}-tg"
     },
     var.tags
-    )
+  )
 }
 
 # Listener for the Target Group
@@ -49,14 +49,14 @@ resource "aws_lb_listener" "http" {
   protocol          = var.listener_protocol
 
   default_action {
-    type = "forward"
+    type             = "forward"
     target_group_arn = aws_lb_target_group.main.arn
   }
 
   tags = merge(
     {
-        Name = "${var.name}-listener"
+      Name = "${var.name}-listener"
     },
     var.tags
-    )
+  )
 }

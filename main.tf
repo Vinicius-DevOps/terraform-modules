@@ -27,3 +27,13 @@ module "alb" {
   subnets_ids         = module.vpc.public_subnet_ids
   security_groups_ids = [module.security_group.security_group_id]
 }
+
+module "asg" {
+  source                 = "./modules/autoscaling-group"
+  name                   = "autoscaling-group"
+  ami_id                 = "ami-0c02fb55956c7d316"
+  instance_type          = "t2.micro"
+  vpc_security_group_ids = [module.security_group.security_group_id]
+  subnet_ids             = module.vpc.public_subnet_ids
+  target_group_arns      = [module.alb.target_group_arn]
+}
