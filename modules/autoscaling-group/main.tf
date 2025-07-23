@@ -1,6 +1,6 @@
 # Lounch Template
 resource "aws_launch_template" "main" {
-  name_prefix   = "${var.name}-lt"
+  name_prefix   = "lt-${var.environment}"
   image_id      = var.ami_id
   instance_type = var.instance_type
   key_name      = var.key_name
@@ -48,7 +48,7 @@ resource "aws_launch_template" "main" {
 
 # Auto Scaling Group
 resource "aws_autoscaling_group" "main" {
-  name                = "${var.name}-asg"
+  name                = "asg-${var.environment}"
   vpc_zone_identifier = var.subnet_ids
   min_size            = var.min_size
   max_size            = var.max_size
